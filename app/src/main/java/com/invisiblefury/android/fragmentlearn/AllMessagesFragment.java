@@ -58,9 +58,9 @@ public class AllMessagesFragment extends ListFragment {
             if(convertView == null){
                 convertView = getActivity().getLayoutInflater().inflate(R.layout.list_message_item, null);
             }
-            Message m = getItem(position);
+            Message message = getItem(position);
             TextView quoteTextView = (TextView)convertView.findViewById(R.id.messageTextview_listItem);
-            quoteTextView.setText(m.getTitle());
+            quoteTextView.setText(message.getTitle());
             return convertView;
         }
     }
