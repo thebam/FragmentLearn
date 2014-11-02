@@ -22,6 +22,7 @@ public class AllMessagesFragment extends ListFragment {
     private DisplayMessageCallback mCallback;
     public AllMessagesFragment() {
         // Required empty public constructor
+        //
     }
 
 
