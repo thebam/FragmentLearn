@@ -1,8 +1,12 @@
 package com.invisiblefury.android.fragmentlearn;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,11 +14,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.util.UUID;
 
 
 public class AddMessageFragment extends Fragment {
     public final static String ARG_MESSAGE = "arg_message";
+    public final static int REQUEST_IMAGE_CAPTURE = 1;
     private MessageAddedCallback mCallback;
     public AddMessageFragment() {
         // Required empty public constructor
@@ -27,6 +31,16 @@ public class AddMessageFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_add_message, container, false);
 
         Button btnSubmit = (Button)v.findViewById(R.id.btnSubmit);
+        Button btnAddPhoto = (Button)v.findViewById(R.id.btnPhoto);
+
+        Context context = getActivity();
+        PackageManager packageManager = context.getPackageManager();
+
+        if(!packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA)){
+            btnAddPhoto.setEnabled(false);
+        }
+
+
         final EditText editTextTitle = (EditText)v.findViewById(R.id.editTextTitle);
         final EditText editTextMessage = (EditText)v.findViewById(R.id.editTextMessage);
 
@@ -49,6 +63,13 @@ public class AddMessageFragment extends Fragment {
                         mCallback.messageAdded(newMessage);
                     }
                 }
+            }
+        });
+
+        btnAddPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dispatchTakePictureIntent();
             }
         });
 
@@ -75,5 +96,13 @@ public class AddMessageFragment extends Fragment {
     public void onDetach(){
         super.onDetach();
         mCallback = null;
+    }
+
+    private void dispatchTakePictureIntent(){
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if(takePictureIntent.resolveActivity(getActivity().getPackageManager())!=null){
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+
     }
 }
