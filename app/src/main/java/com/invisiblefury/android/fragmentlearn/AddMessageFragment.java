@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.provider.MediaStore;
@@ -13,7 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-
+import android.widget.ImageView;
 
 
 public class AddMessageFragment extends Fragment {
@@ -97,6 +98,18 @@ public class AddMessageFragment extends Fragment {
         super.onDetach();
         mCallback = null;
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        if(requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK){
+            Bundle extras = data.getExtras();
+            Bitmap imgBitmap = (Bitmap)extras.get("data");
+            ImageView imageViewPhoto = (ImageView)getView().findViewById(R.id.imgViewPhoto);
+            imageViewPhoto.setImageBitmap(imgBitmap);
+
+        }
+    }
+
 
     private void dispatchTakePictureIntent(){
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
