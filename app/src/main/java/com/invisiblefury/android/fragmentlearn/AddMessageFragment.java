@@ -29,7 +29,6 @@ public class AddMessageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         setRetainInstance(true);
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_add_message, container, false);
