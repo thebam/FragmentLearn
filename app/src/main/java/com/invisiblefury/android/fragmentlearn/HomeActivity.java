@@ -11,16 +11,18 @@ import android.view.MenuItem;
 
 public class HomeActivity extends Activity implements AddMessageFragment.MessageAddedCallback, AllMessagesFragment.DisplayMessageCallback {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        //Fragment fragment = new AddMessageFragment();
-        Fragment fragment = new AllMessagesFragment();
-        FragmentManager fm = getFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.fragmentPlaceholder,fragment);
-        ft.commit();
+
+            Fragment fragment = new AllMessagesFragment();
+            FragmentManager fm = getFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.add(R.id.fragmentPlaceholder, fragment);
+            ft.commit();
+
     }
 
 
@@ -45,12 +47,13 @@ public class HomeActivity extends Activity implements AddMessageFragment.Message
             FragmentManager fm = getFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
             ft.replace(R.id.fragmentPlaceholder,fr);
-            ft.addToBackStack(null);
+            //ft.addToBackStack(null);
             ft.commit();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
 
     public void messageAdded(Message newMessage){
         /*

@@ -20,6 +20,7 @@ import android.widget.ImageView;
 public class AddMessageFragment extends Fragment {
     public final static String ARG_MESSAGE = "arg_message";
     public final static int REQUEST_IMAGE_CAPTURE = 1;
+
     private MessageAddedCallback mCallback;
     public AddMessageFragment() {
         // Required empty public constructor
@@ -28,6 +29,8 @@ public class AddMessageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        setRetainInstance(true);
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_add_message, container, false);
 
@@ -41,9 +44,11 @@ public class AddMessageFragment extends Fragment {
             btnAddPhoto.setEnabled(false);
         }
 
-
         final EditText editTextTitle = (EditText)v.findViewById(R.id.editTextTitle);
         final EditText editTextMessage = (EditText)v.findViewById(R.id.editTextMessage);
+
+
+
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,4 +123,6 @@ public class AddMessageFragment extends Fragment {
         }
 
     }
+
+
 }
